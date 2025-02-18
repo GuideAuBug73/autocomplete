@@ -34,7 +34,7 @@ if not GEOAPIFY_API_KEY:
 # Définition de l'endpoint /api/cities/{query}
 # Ce endpoint permet de rechercher des villes en fonction d'une chaîne de recherche
 @app.get("/api/cities/{query}")
-async def search_cities(query: str) -> List[dict]:
+async def search_cities(query: str, lang: str = "en") -> List[dict]:
     # Ne recherche que si la requête contient au moins 3 caractères
     if len(query) < 3:
         return []
@@ -49,7 +49,8 @@ async def search_cities(query: str) -> List[dict]:
                 "type": "city",     # Ne chercher que des villes
                 "format": "json",   # Format de réponse souhaité
                 "apiKey": GEOAPIFY_API_KEY,  # Clé API requise
-                "limit": 5         # Limite le nombre de résultats à 5
+                "limit": 5,        # Limite le nombre de résultats à 5
+                "lang": lang       # Langue des résultats (ex: fr, en, de, etc.)
             }
         )
         

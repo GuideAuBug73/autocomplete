@@ -71,7 +71,12 @@ const fetchCities = async (query: string) => {
   }
 
   try {
-    const response = await fetch(`http://localhost:8000/api/cities/${encodeURIComponent(query)}`)
+    // Récupère la langue du navigateur (ex: 'fr' pour français)
+    const browserLang = navigator.language.split('-')[0]
+    
+    const response = await fetch(
+      `http://localhost:8000/api/cities/${encodeURIComponent(query)}?lang=${browserLang}`
+    )
     if (!response.ok) throw new Error('Failed to fetch cities')
     cities.value = await response.json()
   } catch (error) {
