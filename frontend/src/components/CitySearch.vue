@@ -104,99 +104,133 @@ const selectCity = (city: City) => {
 </script>
 
 <style scoped>
-/* Container principal du composant */
 .city-search {
-  max-width: 600px;         /* Limite la largeur pour une meilleure lisibilité */
-  margin: 0 auto;          /* Centre le composant horizontalement */
-  padding: 20px;           /* Espacement interne */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* Conteneur du champ de recherche et de la liste des suggestions */
 .search-container {
-  position: relative;      /* Permet le positionnement absolu de la liste */
+  position: relative;
 }
 
-/* Style du champ de recherche */
 .search-input {
-  width: 100%;            /* Occupe toute la largeur disponible */
-  padding: 12px;          /* Espacement interne confortable */
-  font-size: 16px;        /* Taille de police lisible */
-  border: 2px solid #ddd; /* Bordure visible mais subtile */
-  border-radius: 8px;     /* Coins arrondis */
-  outline: none;          /* Supprime le contour par défaut */
-  transition: border-color 0.3s;  /* Animation de la bordure */
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
 }
 
-/* Style du champ de recherche quand il a le focus */
 .search-input:focus {
-  border-color: #4CAF50;  /* Bordure verte pour indiquer le focus */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  outline: none;
 }
 
-/* Liste déroulante des suggestions */
 .city-list {
-  position: absolute;      /* Positionnement par rapport au conteneur */
-  width: 100%;            /* Même largeur que le champ de recherche */
-  max-height: 300px;      /* Hauteur maximum avant défilement */
-  overflow-y: auto;       /* Barre de défilement si nécessaire */
-  list-style: none;       /* Supprime les puces de liste */
-  padding: 0;
-  margin: 0;
-  border: 1px solid #ddd;
+  position: absolute;
+  width: 100%;
+  max-height: 350px;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  list-style: none;
+  background: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.city-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.city-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
   border-radius: 4px;
-  background: #f8f9fa;    /* Fond plus contrasté */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Ombre légère */
-  z-index: 1000;          /* S'affiche au-dessus des autres éléments */
 }
 
-/* Style des éléments de la liste */
+.city-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
 .city-item {
-  padding: 12px;          /* Espacement interne */
-  cursor: pointer;        /* Indique que l'élément est cliquable */
-  transition: background-color 0.2s;  /* Animation au survol */
-  border-bottom: 1px solid #e9ecef;  /* Séparateur entre les éléments */
-}
-
-.city-item:last-child {
-  border-bottom: none;    /* Pas de bordure pour le dernier élément */
-}
-
-/* Style au survol des éléments de la liste */
-.city-item:hover {
-  background-color: #e9ecef;  /* Fond plus contrasté au survol */
-}
-
-/* Nom de la ville dans la liste */
-.city-item-name {
-  font-weight: 500;       /* Police un peu plus grasse */
-  color: #212529;         /* Couleur plus foncée pour meilleur contraste */
-  margin-bottom: 4px;     /* Espacement avec les détails */
-}
-
-/* Détails de la ville dans la liste */
-.city-item-details {
-  font-size: 0.9em;      /* Taille de police légèrement plus petite */
-  color: #6c757d;        /* Couleur grise mais lisible */
-}
-
-/* Section affichant les détails de la ville */
-.city-details {
-  margin-top: 30px;       /* Espacement avec le champ de recherche */
-  padding: 20px;
+  padding: 0.8rem 1rem;
+  margin: 0.25rem 0;
+  cursor: pointer;
   border-radius: 8px;
-  background-color: #f8f9fa;  /* Fond plus contrasté */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* Ombre très légère */
+  transition: all 0.2s ease;
 }
 
-/* Titre dans les détails de la ville */
+.city-item:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  transform: translateX(4px);
+}
+
+.city-item-name {
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.city-item-details {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.city-details {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.3s ease-out;
+}
+
 .city-details h2 {
-  margin: 0 0 15px 0;
-  color: #212529;         /* Couleur plus foncée pour meilleur contraste */
-  font-weight: 600;      /* Police plus grasse */
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  display: inline-block;
 }
 
-/* Paragraphes dans les détails de la ville */
 .city-details p {
-  margin: 8px 0;
-  color: #495057;         /* Couleur plus foncée pour meilleur contraste */
+  margin: 0.75rem 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .city-details {
+    padding: 1.5rem;
+  }
 }
 </style>
